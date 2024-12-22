@@ -6,13 +6,9 @@ const window = {
   width,
   height,
 };
-//#253a6d
-//#0089d5
-//F17171
-//FFF2E2
-// updated colors being used in all ober the project
+
 const colors = {
-  primaryColor: '#253a6d',
+  primaryColor: '#1860EF',
   orangeColor: '#FF9B01',
   orangeColor2: 'rgba(255,160,1,0.5)',
   orangeColor3: "rgba(255, 160, 1, 0.4)",
@@ -47,7 +43,29 @@ const colors = {
   red4: '#DD1E0C',
   shadowColor: 'rgba(0, 0, 0, 0.24)',
 };
+
+const fontFamily = {
+  semiBold: 'Lato-Semibold',
+  bold: 'Lato-Bold',
+  extraBold: 'Lato-Heavy',
+  medium: 'Lato-Medium',
+  regular: 'Lato-Regular',
+  thin: 'Lato-thin',
+  light: 'Lato-Light',
+  hairline: 'Lato-Hairline',
+  black: 'Lato-Black',
+  pangram: 'pangram',
+  popinRegular: 'Poppins-Regular',
+  popinBold: 'Poppins-Bold',
+  popinMedium: 'Poppins-Medium',
+  popinLight: 'Poppins-Light',
+  popinSemi: 'Poppins-SemiBold',
+  PoetsenOneRegular: 'PoetsenOne-Regular',
+  pacificoRegular: 'Pacifico-Regular',
+  yellowtailRegular: 'Yellowtail-Regular',
+  HelveticaNeue: 'Helvetica Neue',
+};
 const timer = {
   loaderTime: 1000,
 };
-export { timer, window, colors };
+export { timer, window, colors, fontFamily };

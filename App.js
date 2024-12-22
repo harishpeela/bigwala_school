@@ -9,6 +9,8 @@ import { StatusBar, StyleSheet } from 'react-native';
 
 
 function App() {
+  console.log('app.js');
+
   const navigationRef = useRef(null);
   return (
     <SafeAreaProvider>
@@ -17,7 +19,6 @@ function App() {
         barStyle="dark-content"
         translucent={true}
       />
-
       <RootNavigation />
     </SafeAreaProvider>
   );

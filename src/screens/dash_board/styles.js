@@ -2,9 +2,9 @@ import { StyleSheet } from "react-native";
 import { window } from "../../common/theme";
 export const styles = StyleSheet.create({
     ImageSlideCon: {
-        marginVertical: '10%',
-        marginTop: window.height * 0.06,
-        height: 180,
+        marginVertical: '5%',
+        marginTop: window.height * 0.03,
+        height: window.height * 0.2,
         marginHorizontal: window.width * 0.06,
         elevation: 5,
         borderRadius: 5,
@@ -33,7 +33,19 @@ export const styles = StyleSheet.create({
         borderRadius: 15,
     },
     item: {
-        // backgroundColor: 'black',
-        margin: 5
+        margin: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    img1: {
+        height: 40,
+        width: 40,
+        borderRadius: 20
+    },
+    topView: {
+        marginTop: window.height * 0.06,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginHorizontal: window.width * 0.05
     }
 })

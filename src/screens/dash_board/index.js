@@ -1,84 +1,215 @@
-import React from "react";
-import { Alert, FlatList, SafeAreaView, Text, View } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import { Alert, FlatList, SafeAreaView, Text, TouchableOpacity, View, Image } from "react-native";
 import ImageSlider from "../../helper_components/ImageSlider";
 import { styles } from "./styles";
 import LinearGradient from "react-native-linear-gradient";
-import { ATTENDENCE, BUS, CALL, GALARY, HOME_WORK, NOTICE_BOARD, TEACHER, VIDEO, ZOOM } from "../../constants/image_const";
-import { Image } from "react-native-elements";
-const DashBoard = () => {
+import { ANNOUNCEMENTS, ATTENDENCE, BUS, CALL, DASHBOARDTEACHER, FEE, GALARY, HOME_WORK, NOTICE_BOARD, REPORT_CARD, STUDENT, STUDENT_HOMEWORK, TEACHER, VIDEO, ZOOM } from "../../constants/image_const";
+import { colors } from "../../common/theme";
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import ApplicationContext from "../../utils/context.api/context";
+import { getUserDetails } from "../../utils/preferences/local_storage";
+
+const DashBoard = ({ navigation, }) => {
+    console.log('dashboard');
+
+    useEffect(() => {
+        const getDetails = async () => {
+            let ROLE = 'teacher';
+            setRole(ROLE);
+            let detail = await getUserDetails();
+            setDetails(detail);
+            console.log('details', detail);
+        }
+        getDetails();
+    }, []);
+
+
+    const [details, setDetails] = useState();
+    const { userDetails } = useContext(ApplicationContext);
+    console.log('userDetails', userDetails);
+    const [role, setRole] = useState();
     const Data = [
         {
             "id": 1,
-            "name": "Bus",
+            "name": "Tracking",
             "image": BUS,
-            "navigation": () => { Alert.alert('Hey', 'Welcome to Bigiwala School app') },
+            "navigation": () => { navigation.navigate('tracker') },
         },
         {
             "id": 2,
-            "name": "Attendence",
+            "name": "Staff Attendence",
             "image": ATTENDENCE,
-            "navigation": () => { Alert.alert('Hey', 'Welcome to Bigiwala School app') },
+            "navigation": () => { navigation.navigate('staffAttendence') },
         },
         {
             "id": 3,
             "name": "Call",
             "image": CALL,
-            "navigation": () => { Alert.alert('Hey', 'Welcome to Bigiwala School app') },
+            "navigation": () => { navigation.navigate('callinfo') },
         },
         {
             "id": 4,
             "name": "Home work",
             "image": HOME_WORK,
-            "navigation": () => { Alert.alert('Hey', 'Welcome to Bigiwala School app') },
+            "navigation": () => { navigation.navigate('homework') },
         },
         {
             "id": 5,
             "name": "Notice Board",
             "image": NOTICE_BOARD,
-            "navigation": () => { Alert.alert('Hey', 'Welcome to Bigiwala School app') },
+            "navigation": () => { navigation.navigate('noticeBoard') },
         },
         {
             "id": 6,
-            "name": "Teacher",
+            "name": "Student Attendence",
             "image": TEACHER,
-            "navigation": () => { Alert.alert('Hey', 'Welcome to Bigiwala School app') },
+            "navigation": () => { navigation.navigate('studentsAttendence') },
         },
         {
             "id": 7,
             "name": "Video",
             "image": VIDEO,
-            "navigation": () => { Alert.alert('Hey', 'Welcome to Bigiwala School app') },
+            "navigation": () => { navigation.navigate('videos') },
         },
         {
             "id": 8,
-            "name": "GAllery",
+            "name": "Gallery",
             "image": GALARY,
-            "navigation": () => { Alert.alert('Hey', 'Welcome to Bigiwala School app') },
+            "navigation": () => { navigation.navigate('gallery') },
         },
         {
             "id": 9,
             "name": "Zoom",
             "image": ZOOM,
-            "navigation": () => { Alert.alert('Hey', 'Welcome to Bigiwala School app') },
+            "navigation": () => { navigation.navigate('onlineClass') },
+        },
+
+    ]
+
+    const StudentData = [
+        {
+            "id": 1,
+            "name": "Tracking",
+            "image": BUS,
+            "navigation": () => { navigation.navigate('tracker') },
+        },
+        {
+            "id": 2,
+            "name": "Attendence",
+            "image": ATTENDENCE,
+            "navigation": () => { navigation.navigate('attendence') },
+        },
+        {
+            "id": 3,
+            "name": "Home Work",
+            "image": STUDENT_HOMEWORK,
+            "navigation": () => { navigation.navigate('homework') },
+        },
+        {
+            "id": 4,
+            "name": "Fees",
+            "image": FEE,
+            "navigation": () => { navigation.navigate('fees') },
+        },
+        {
+            "id": 5,
+            "name": "Call",
+            "image": CALL,
+            "navigation": () => { navigation.navigate('callinfo') },
+        },
+        {
+            "id": 6,
+            "name": "Progress Card",
+            "image": REPORT_CARD,
+            "navigation": () => { navigation.navigate('reportCard') },
+        },
+        {
+            "id": 7,
+            "name": "Announcements",
+            "image": ANNOUNCEMENTS,
+            "navigation": () => { navigation.navigate('announcements') },
+        },
+        {
+            "id": 8,
+            "name": "Notice board",
+            "image": NOTICE_BOARD,
+            "navigation": () => { navigation.navigate('noticeBoard') },
+        },
+
+        {
+            "id": 9,
+            "name": "Gallery",
+            "image": GALARY,
+            "navigation": () => { navigation.navigate('gallery') },
+        },
+        {
+            "id": 10,
+            "name": "Video",
+            "image": VIDEO,
+            "navigation": () => { navigation.navigate('videos') },
+        },
+        {
+            "id": 11,
+            "name": "On line class",
+            "image": ZOOM,
+            "navigation": () => { navigation.navigate('onlineClass') },
         },
 
     ]
     return (
-        <View style={styles.gradient}>
-            <View style={styles.ImageSlideCon}>
-                <ImageSlider />
-            </View>
-            <LinearGradient colors={['#F94209', '#FF9E00']} style={styles.listContainer}>
-                <FlatList data={Data}
-                    numColumns={3}
-                    keyExtractor={({ index, item }) => index}
-                    renderItem={({ item, index }) => (
-                        <View style={styles.item}>
-                            <Image source={item.image} style={styles.itemImage} resizeMode="cover" />
-                        </View>
-                    )} />
-            </LinearGradient>
-        </View>
+        details?.role === "teacher"
+            // role === "teacher"
+            ? (
+                <LinearGradient colors={[colors.orangeColor, colors.primaryColor]} style={styles.gradient}>
+                    <View style={styles.topView}>
+                        <TouchableOpacity onPress={() => navigation.navigate('profile')}>
+                            <FontAwesome name="user" size={30} color={'white'} />
+                        </TouchableOpacity>
+                        <Image source={DASHBOARDTEACHER} height={50} width={50} style={styles.img1} />
+                    </View>
+                    <View style={styles.ImageSlideCon}>
+                        <ImageSlider />
+                    </View>
+                    <LinearGradient colors={['#F94209', '#FF9E00']} style={styles.listContainer}>
+                        <FlatList data={Data}
+                            numColumns={3}
+                            keyExtractor={({ index, item }) => index}
+                            renderItem={({ item, index }) => (
+                                <View style={styles.item}>
+                                    <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center' }} onPress={() => item.navigation()}>
+                                        <Image source={item.image} style={styles.itemImage} resizeMode="cover" />
+                                        <Text style={{ marginTop: 5, fontSize: 12, color: colors.white, fontWeight: 'bold' }}>{item.name} </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            )} />
+                    </LinearGradient>
+                </LinearGradient>
+            ) : (
+                <LinearGradient colors={[colors.orangeColor, colors.primaryColor]} style={styles.gradient}>
+                    <View style={styles.topView}>
+                        <TouchableOpacity onPress={() => navigation.navigate('profile')}>
+                            <FontAwesome name="user" size={30} color={'white'} />
+                        </TouchableOpacity>
+                        <Image source={STUDENT} height={50} width={50} style={styles.img1} />
+                    </View>
+                    <View style={styles.ImageSlideCon}>
+                        <ImageSlider />
+                    </View>
+                    <LinearGradient colors={['#F94209', '#FF9E00']} style={styles.listContainer}>
+                        <FlatList data={StudentData}
+                            numColumns={3}
+                            keyExtractor={({ index, item }) => index}
+                            renderItem={({ item, index }) => (
+                                <View style={styles.item}>
+                                    <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center' }} onPress={() => item.navigation()}>
+                                        <Image source={item.image} style={styles.itemImage} resizeMode="cover" />
+                                        <Text style={{ marginTop: 5, fontSize: 12, color: colors.white, fontWeight: 'bold' }}>{item.name} </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            )} />
+                    </LinearGradient>
+                </LinearGradient>
+            )
     )
 }
 export default DashBoard;

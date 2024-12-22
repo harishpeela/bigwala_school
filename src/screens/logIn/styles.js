@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { window } from "../../common/theme";
+import { colors, window } from "../../common/theme";
 export const styles = StyleSheet.create({
     gradient: {
         flex: 1,
@@ -47,4 +47,9 @@ export const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
     },
+    welcome: {
+        color: colors.white,
+        fontWeight: 'bold',
+        fontSize: 24
+    }
 });
