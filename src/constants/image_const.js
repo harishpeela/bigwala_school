@@ -23,9 +23,8 @@ export const STUDENT_HOMEWORK = require('../utils/assets/homework.jpg');
 export const FEE = require('../utils/assets/fees.jpg');
 export const REPORT_CARD = require('../utils/assets/reportcard.jpg');
 export const ANNOUNCEMENTS = require('../utils/assets/announcement.jpg');
-
-
-
+export const TEACHERS = require('../utils/assets/teachers.jpeg');
+export const CLASSROOMS = require('../utils/assets/classrooms.jpg');
 
 //staff attendence//
 export const STAFFPRESENT = require('../utils/assets/present.jpg');

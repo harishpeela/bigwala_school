@@ -27,6 +27,11 @@ import Gallery from "../screens/gallery ";
 import Videos from "../screens/videos";
 import OnLineClass from "../screens/onlineclass";
 import AddHomeWork from "../screens/add_home_work";
+import TeachersList from "../screens/teachers_list";
+import ClassRoomsList from "../screens/class_rooms_list";
+import AddTeacher from "../screens/add_teachers";
+import AddStudent from "../screens/add_student";
+import TeacherDetails from "../screens/teacher_details";
 const Stack = createNativeStackNavigator();
 
 const RootNavigation = () => {
@@ -61,7 +66,14 @@ const RootNavigation = () => {
             <Stack.Screen name="videos" component={Videos} options={{ headerShown: false }} />
             <Stack.Screen name="onlineClass" component={OnLineClass} options={{ headerShown: false }} />
             <Stack.Screen name="addhomework" component={AddHomeWork} options={{ headerShown: false }} />
+            <Stack.Screen name="teacherslist" component={TeachersList} options={{ headerShown: false }} />
+            <Stack.Screen name="classroomslist" component={ClassRoomsList} options={{ headerShown: false }} />
+            <Stack.Screen name="addteacher" component={AddTeacher} options={{ headerShown: false }} />
+            <Stack.Screen name="addstudent" component={AddStudent} options={{ headerShown: false }} />
+            <Stack.Screen name="teacherdetails" component={TeacherDetails} options={{ headerShown: false }} />
+
         </Stack.Navigator>
+
     );
 
     const [loginDetails, setLoginDetails] = useState(null);

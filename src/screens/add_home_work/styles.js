@@ -11,4 +11,18 @@ export const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: colors.white
     },
+    classRoomTab: {
+        zIndex: 3000,
+        borderWidth: 1,
+        borderRadius: 10,
+        padding: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 10,
+        backgroundColor: colors.white,
+    },
+    label: {
+        color: colors.black,
+        fontWeight: '600',
+    }
 })

@@ -3,7 +3,7 @@ import { Alert, FlatList, SafeAreaView, Text, TouchableOpacity, View, Image } fr
 import ImageSlider from "../../helper_components/ImageSlider";
 import { styles } from "./styles";
 import LinearGradient from "react-native-linear-gradient";
-import { ANNOUNCEMENTS, ATTENDENCE, BUS, CALL, DASHBOARDTEACHER, FEE, GALARY, HOME_WORK, NOTICE_BOARD, REPORT_CARD, STUDENT, STUDENT_HOMEWORK, TEACHER, VIDEO, ZOOM } from "../../constants/image_const";
+import { ADMIN, ANNOUNCEMENTS, ATTENDENCE, BUS, CALL, CLASSROOMS, DASHBOARDTEACHER, FEE, GALARY, HOME_WORK, NOTICE_BOARD, REPORT_CARD, STUDENT, STUDENT_HOMEWORK, TEACHER, TEACHERS, VIDEO, ZOOM } from "../../constants/image_const";
 import { colors } from "../../common/theme";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import ApplicationContext from "../../utils/context.api/context";
@@ -28,7 +28,47 @@ const DashBoard = ({ navigation, }) => {
     const { userDetails } = useContext(ApplicationContext);
     console.log('userDetails', userDetails);
     const [role, setRole] = useState();
-    const Data = [
+    const RoleAdmin = [
+        {
+            "id": 1,
+            "name": "Teachers",
+            "image": TEACHERS,
+            "navigation": () => { navigation.navigate('teacherslist') },
+        },
+        {
+            "id": 2,
+            "name": "Staff Attendence",
+            "image": ATTENDENCE,
+            "navigation": () => { navigation.navigate('staffAttendence') },
+        },
+        {
+            "id": 3,
+            "name": "Classes",
+            "image": CLASSROOMS,
+            "navigation": () => { navigation.navigate('classroomslist') },
+        },
+        {
+            "id": 4,
+            "name": "Home work",
+            "image": HOME_WORK,
+            "navigation": () => { navigation.navigate('homework') },
+        },
+        {
+            "id": 5,
+            "name": "Students",
+            "image": HOME_WORK,
+            "navigation": () => { navigation.navigate('addstudent') },
+        },
+        {
+            "id": 6,
+            "name": "Roles",
+            "image": HOME_WORK,
+            "navigation": () => { navigation.navigate('roles') },
+        },
+    ]
+
+
+    const RoleTeacher = [
         {
             "id": 1,
             "name": "Tracking",
@@ -86,7 +126,7 @@ const DashBoard = ({ navigation, }) => {
 
     ]
 
-    const StudentData = [
+    const RoleStudent = [
         {
             "id": 1,
             "name": "Tracking",
@@ -158,7 +198,6 @@ const DashBoard = ({ navigation, }) => {
     ]
     return (
         details?.role === "teacher"
-            // role === "teacher"
             ? (
                 <LinearGradient colors={[colors.orangeColor, colors.primaryColor]} style={styles.gradient}>
                     <View style={styles.topView}>
@@ -171,7 +210,7 @@ const DashBoard = ({ navigation, }) => {
                         <ImageSlider />
                     </View>
                     <LinearGradient colors={['#F94209', '#FF9E00']} style={styles.listContainer}>
-                        <FlatList data={Data}
+                        <FlatList data={RoleTeacher}
                             numColumns={3}
                             keyExtractor={({ index, item }) => index}
                             renderItem={({ item, index }) => (
@@ -184,7 +223,7 @@ const DashBoard = ({ navigation, }) => {
                             )} />
                     </LinearGradient>
                 </LinearGradient>
-            ) : (
+            ) : details?.role === "student" ? (
                 <LinearGradient colors={[colors.orangeColor, colors.primaryColor]} style={styles.gradient}>
                     <View style={styles.topView}>
                         <TouchableOpacity onPress={() => navigation.navigate('profile')}>
@@ -196,7 +235,7 @@ const DashBoard = ({ navigation, }) => {
                         <ImageSlider />
                     </View>
                     <LinearGradient colors={['#F94209', '#FF9E00']} style={styles.listContainer}>
-                        <FlatList data={StudentData}
+                        <FlatList data={RoleStudent}
                             numColumns={3}
                             keyExtractor={({ index, item }) => index}
                             renderItem={({ item, index }) => (
@@ -209,7 +248,30 @@ const DashBoard = ({ navigation, }) => {
                             )} />
                     </LinearGradient>
                 </LinearGradient>
-            )
+            ) : <LinearGradient colors={[colors.orangeColor, colors.primaryColor]} style={styles.gradient}>
+                <View style={styles.topView}>
+                    <TouchableOpacity onPress={() => navigation.navigate('profile')}>
+                        <FontAwesome name="user" size={30} color={'white'} />
+                    </TouchableOpacity>
+                    <Image source={ADMIN} height={50} width={50} style={styles.img1} />
+                </View>
+                <View style={styles.ImageSlideCon}>
+                    <ImageSlider />
+                </View>
+                <LinearGradient colors={['#F94209', '#FF9E00']} style={styles.listContainer}>
+                    <FlatList data={RoleAdmin}
+                        numColumns={3}
+                        keyExtractor={({ index, item }) => index}
+                        renderItem={({ item, index }) => (
+                            <View style={styles.item}>
+                                <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center' }} onPress={() => item.navigation()}>
+                                    <Image source={item.image} style={styles.itemImage} resizeMode="cover" />
+                                    <Text style={{ marginTop: 5, fontSize: 12, color: colors.white, fontWeight: 'bold' }}>{item.name} </Text>
+                                </TouchableOpacity>
+                            </View>
+                        )} />
+                </LinearGradient>
+            </LinearGradient>
     )
 }
 export default DashBoard;

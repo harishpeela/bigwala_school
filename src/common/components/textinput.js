@@ -4,17 +4,25 @@ import { colors } from "../theme";
 
 const ModeratedTextInput = ({
     placeholder,
-    maxLength = 100,
+    maxLength,
     onChangeText,
     value,
     validateInput,
     errorMessage,
     style,
+    numberOfLines = 1,
+    keyboardType,
+    numeric = false, // Add numeric prop
 }) => {
     const [inputValue, setInputValue] = useState(value || "");
     const [error, setError] = useState(null);
 
     const handleChange = (text) => {
+        // Check for numeric restriction
+        if (numeric && /[^0-9]/.test(text)) {
+            return; // Ignore non-numeric characters
+        }
+
         if (text.length <= maxLength) {
             setInputValue(text);
             if (validateInput) {
@@ -28,16 +36,21 @@ const ModeratedTextInput = ({
     return (
         <View style={[styles.container, style]}>
             <TextInput
-                style={[styles.input, error ? styles.errorInput : null]}
+                style={[
+                    styles.input,
+                    error ? styles.errorInput : null,
+                    numberOfLines > 1 ? styles.multiLineInput : null,
+                ]}
                 placeholder={placeholder}
                 value={inputValue}
                 onChangeText={handleChange}
                 maxLength={maxLength}
+                multiline={numberOfLines > 1}
+                numberOfLines={numberOfLines}
+                keyboardType={numeric ? "numeric" : keyboardType} // Set keyboardType based on numeric prop
+                textAlignVertical={numberOfLines > 1 ? "top" : "auto"}
             />
             <View style={styles.info}>
-                <Text style={styles.counter}>
-                    {inputValue.length}/{maxLength}
-                </Text>
                 {error && <Text style={styles.errorText}>{errorMessage || error}</Text>}
             </View>
         </View>
@@ -46,7 +59,7 @@ const ModeratedTextInput = ({
 
 const styles = StyleSheet.create({
     container: {
-        marginBottom: 20,
+        marginBottom: 10,
     },
     input: {
         borderWidth: 1,
@@ -55,7 +68,7 @@ const styles = StyleSheet.create({
         padding: 10,
         fontSize: 16,
         color: "#333",
-        backgroundColor: colors.white
+        backgroundColor: colors.white,
     },
     errorInput: {
         borderColor: "red",
@@ -65,13 +78,16 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         marginTop: 5,
     },
-    counter: {
-        fontSize: 12,
-        color: "#666",
-    },
     errorText: {
         fontSize: 12,
         color: "red",
+    },
+    multiLineInput: {
+        textAlignVertical: "top",
+    },
+    label: {
+        color: colors.black,
+        marginBottom: 5,
     },
 });
 

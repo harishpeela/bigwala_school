@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 
-const DropDown = ({ placeholder, items, setItems }) => {
-    const [open, setOpen] = useState(false);
-    const [value, setValue] = useState(null);
+const DropDown = ({ placeholder, items, setItems, value, setValue,open, setOpen }) => {
 
     return (
         <View style={styles.container}>

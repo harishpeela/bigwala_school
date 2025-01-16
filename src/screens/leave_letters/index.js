@@ -13,17 +13,18 @@ const LeaveLetters = ({ navigation }) => {
     const [description, setDescription] = useState('');
     const [date, setDate] = useState(new Date());
     const [showPicker, setShowPicker] = useState(false);
-    const [dateText, setDateText] = useState('Select Date'); // Placeholder for date
+    const [dateText, setDateText] = useState('Select Date');
 
     const onDateChange = (event, selectedDate) => {
         if (selectedDate) {
             setDate(selectedDate);
             setDateText(selectedDate.toLocaleDateString());
         }
-        setShowPicker(false); // Close picker after selecting a date
+        setShowPicker(false);
     };
 
     const showDatePicker = () => {
+        console.log("Opening date picker"); // Debug log
         setShowPicker(true);
     };
 
@@ -35,7 +36,6 @@ const LeaveLetters = ({ navigation }) => {
                 <Image source={DASHBOARDTEACHER} height={50} width={50} style={styles.img1} />
             </View>
             <View style={styles.container}>
-                {/* Date Picker Section */}
                 <TouchableOpacity onPress={showDatePicker} style={styles.datePicker}>
                     <Text style={styles.date}>{dateText}</Text>
                 </TouchableOpacity>
@@ -48,10 +48,9 @@ const LeaveLetters = ({ navigation }) => {
                     />
                 )}
 
-                {/* Leave Description Input */}
                 <View style={styles.inputContainer}>
                     <TextInput
-                        style={[styles.input, { textAlignVertical: "top" }]} // Align text to top
+                        style={[styles.input, { textAlignVertical: "top" }]}
                         placeholder="Leave Description"
                         placeholderTextColor="black"
                         value={description}

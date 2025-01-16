@@ -42,6 +42,7 @@ const colors = {
   lightBlue: '#177cd4',
   red4: '#DD1E0C',
   shadowColor: 'rgba(0, 0, 0, 0.24)',
+  orangeColor: '#F94209'
 };
 
 const fontFamily = {

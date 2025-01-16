@@ -14,7 +14,6 @@ export const authAxiousInstance = axios.create({
         Accept: 'application/json',
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
-        // Authorization: 'Basic' + base64.encode('skillrat-client:skillrat@2021'),
     },
 });
 
@@ -24,3 +23,16 @@ export const authAxiousInstance1 = axios.create({
         'Content-Type': 'application/json',
     },
 });
+
+export const axiosMultiPartFormData1 = axios.create({
+    baseURL: BASE_URL,
+    headers: {
+      Authorization: bearer_token,
+    },
+  });
+  axiosMultiPartFormData1.interceptors.request.use(async function (config) {
+    let token = await getAuthTokenDetails();
+    // console.log('Sending req with this token', token);
+    config.headers.Authorization = token;
+    return config;
+  });
