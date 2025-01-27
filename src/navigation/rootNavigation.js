@@ -32,6 +32,7 @@ import ClassRoomsList from "../screens/class_rooms_list";
 import AddTeacher from "../screens/add_teachers";
 import AddStudent from "../screens/add_student";
 import TeacherDetails from "../screens/teacher_details";
+import AddClassRoom from "../screens/add_class_room";
 const Stack = createNativeStackNavigator();
 
 const RootNavigation = () => {
@@ -71,6 +72,7 @@ const RootNavigation = () => {
             <Stack.Screen name="addteacher" component={AddTeacher} options={{ headerShown: false }} />
             <Stack.Screen name="addstudent" component={AddStudent} options={{ headerShown: false }} />
             <Stack.Screen name="teacherdetails" component={TeacherDetails} options={{ headerShown: false }} />
+            <Stack.Screen name="addclassroom" component={AddClassRoom} options={{ headerShown: false }} />
 
         </Stack.Navigator>
 
