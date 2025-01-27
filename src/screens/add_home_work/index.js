@@ -61,7 +61,6 @@ const AddHomeWork = ({ navigation }) => {
         } else {
             Alert.alert('some thing went wrong in classes')
         }
-
     }
     useEffect(() => {
         Subjects();
@@ -124,54 +123,76 @@ const AddHomeWork = ({ navigation }) => {
             </View>
             <View style={{ marginHorizontal: window.width * 0.05 }}>
                 <TouchableOpacity style={styles.classRoomTab} onPress={() => setDropDown(!dropDown)}>
-                    <Text style={styles.label}>Select Standard and section</Text>
-                    <AntDesign name={dropDown ? "caretup" : "caretdown"} size={20} color={colors.black} style={{ alignSelf: "flex-end" }} />
+                    <Text style={styles.label}>
+                        {selectedClass ? `${selectedClass.standard} - ${selectedClass.section}` : 'Select Standard and Section'}
+                    </Text>
+                    <AntDesign
+                        name={dropDown ? "caretup" : "caretdown"}
+                        size={20}
+                        color={colors.black}
+                        style={{ alignSelf: "flex-end" }}
+                    />
                 </TouchableOpacity>
                 {dropDown && (
-                    <>
-                        <FlatList
-                            horizontal={false}
-                            data={chunkedClasses}
-                            style={{ marginTop: 10 }}
-                            keyExtractor={(item, index) => index.toString()}
-                            renderItem={({ item }) => (
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 10 }}>
-                                    {item.map((box) => {
-                                        const isSelected = selectedBoxId === box.classroom_id;
+                    <FlatList
+                        horizontal={false}
+                        data={chunkedClasses}
+                        style={{ marginTop: 10 }}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({ item }) => (
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 10 }}>
+                                {item.map((box) => {
+                                    const isSelected = selectedBoxId === box.classroom_id;
 
-                                        return (
-                                            <TouchableOpacity
-                                                key={box.classroom_id}
-                                                onPress={() => { setSelectedBoxId(box.classroom_id); setDropDown(!dropDown); setSelectedClass(box) }}
+                                    return (
+                                        <TouchableOpacity
+                                            key={box.classroom_id}
+                                            onPress={() => {
+                                                setSelectedBoxId(box.classroom_id);
+                                                setSelectedClass(box); // Update selectedClass state
+                                                setDropDown(false); // Close dropdown
+                                            }}
+                                            style={{
+                                                height: 50,
+                                                width: 100,
+                                                alignItems: 'center',
+                                                backgroundColor: isSelected ? colors.orangeColor : 'white',
+                                                padding: 1,
+                                                justifyContent: 'center',
+                                                margin: 5,
+                                            }}
+                                        >
+                                            <Text
                                                 style={{
-                                                    height: 50,
-                                                    width: 100,
-                                                    alignItems: 'center',
-                                                    backgroundColor: isSelected ? colors.orangeColor : 'white',
-                                                    padding: 1,
-                                                    justifyContent: 'center',
-                                                    margin: 5,
+                                                    fontSize: 20,
+                                                    color: isSelected ? 'white' : 'black',
+                                                    fontWeight: 'bold'
                                                 }}
                                             >
-                                                <Text style={{ fontSize: 20, color: isSelected ? 'white' : 'black', fontWeight: 'bold' }}>
-                                                    {box.standard} {box.section}
-                                                </Text>
-                                            </TouchableOpacity>
-                                        );
-                                    })}
-                                </View>
-                            )}
-                        />
-
-                    </>
-                )
-                }
+                                                {box.standard} {box.section}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    );
+                                })}
+                            </View>
+                        )}
+                    />
+                )}
             </View>
 
             <View style={{ marginHorizontal: window.width * 0.05 }}>
                 <TouchableOpacity style={styles.classRoomTab} onPress={() => setSubjectsDropDown(!subjectsDropDown)}>
-                    <Text style={styles.label}>Select Subject</Text>
-                    <AntDesign name={dropDown ? "caretup" : "caretdown"} size={20} color={colors.black} style={{ alignSelf: "flex-end" }} />
+                    <Text style={styles.label}>
+                        {selectedSubjectId
+                            ? subjects.find((sub) => sub.subject_id === selectedSubjectId)?.subject_name || 'Select Subject'
+                            : 'Select Subject'}
+                    </Text>
+                    <AntDesign
+                        name={subjectsDropDown ? "caretup" : "caretdown"}
+                        size={20}
+                        color={colors.black}
+                        style={{ alignSelf: "flex-end" }}
+                    />
                 </TouchableOpacity>
                 {subjectsDropDown && (
                     <FlatList
@@ -183,10 +204,14 @@ const AddHomeWork = ({ navigation }) => {
                             <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 10 }}>
                                 {item.map((box) => {
                                     const isSelected = selectedSubjectId === box.subject_id;
+
                                     return (
                                         <TouchableOpacity
                                             key={box.subject_id}
-                                            onPress={() => { setSelectedSubjectId(box.subject_id); setSubjectsDropDown(!subjectsDropDown) }}
+                                            onPress={() => {
+                                                setSelectedSubjectId(box.subject_id);
+                                                setSubjectsDropDown(false); // Close dropdown
+                                            }}
                                             style={{
                                                 height: 50,
                                                 width: 100,
@@ -197,7 +222,14 @@ const AddHomeWork = ({ navigation }) => {
                                                 margin: 5,
                                             }}
                                         >
-                                            <Text style={{ fontSize: 15, color: isSelected ? 'white' : 'black', fontWeight: 'bold', textTransform: 'capitalize' }}>
+                                            <Text
+                                                style={{
+                                                    fontSize: 15,
+                                                    color: isSelected ? 'white' : 'black',
+                                                    fontWeight: 'bold',
+                                                    textTransform: 'capitalize'
+                                                }}
+                                            >
                                                 {box.subject_name}
                                             </Text>
                                         </TouchableOpacity>
@@ -206,10 +238,9 @@ const AddHomeWork = ({ navigation }) => {
                             </View>
                         )}
                     />
-
-                )
-                }
+                )}
             </View>
+
             <View style={{ margin: 20 }}>
                 <ModeratedTextInput numberOfLines={5} placeholder={'home work description'} maxLength={200} onChangeText={e => setDescription(e)} />
             </View>

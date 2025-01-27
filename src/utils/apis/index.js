@@ -90,3 +90,14 @@ export const Add_Roles = async () => {
         return error.response.data;
     }
 };
+
+export const AllClassRooms = async () => {
+    try {
+        let result = await axiosMultiPartFormData1.get(
+            `${endPoints.ALL_CLASS_ROOMS}`
+        );
+        return result;
+    } catch (error) {
+        return error.response.data;
+    }
+};
